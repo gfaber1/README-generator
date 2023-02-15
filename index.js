@@ -1,8 +1,11 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer')
 const fs = require('fs');
-const { default: inquirer } = require('inquirer');
-const { title } = require('process');
+
+var MIT = 'MIT'
+var GPLv2 = 'GPLv2'
+var Apache = 'Apache 2.0'
+var other = 'Other'
 // TODO: Create an array of questions for user input
 inquirer
     .prompt([
@@ -34,7 +37,7 @@ inquirer
         {
             type: 'list',
             message: 'What license does your project use?',
-            choices: ['MIT', 'GPLv2', 'Apache', 'Other'],
+            choices: [MIT, GPLv2, Apache, other],
             name: 'license',
         },
         {
@@ -80,44 +83,56 @@ inquirer
         tests,
         github,
         linkedin,
-        email
+        email,
     }) => {
-        const template = `# ${title}
+        if (license === MIT) {
+            license = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+        } else if (license === GPLv2) {
+            license = '[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)'
+        } else if (license === Apache) {
+            license = '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)'
+        } else if (license === other) {
+            license = 'go here to find the correct markdown button for you license: https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba'
+        }
+        const template = `
+# ${title}
+
+${license}
         
-        ## Description
-        ${description}
-        ## Table of Contents 
-        *[Installation](#installation)
-        *Usage](#usage)
-        *[Credits](#credits)
-        *[License](#license)
+## Description
+${description}
+## Table of Contents 
+*[Installation](#installation)
+*[Usage](#usage)
+*[Credits](#credits)
+*[License](#license)
 
-        ## Installation
-        ${installation}
-        ## Usage
-        ${usage}
-        ## Credits
-        ${credits}
-        ## License
-        ${license}
-        ## Features
-        ${features}
-        ## How to Contribute
-        ${contribute}
-        ## Tests
-        ${tests}
+## Installation
+${installation}
+## Usage
+${usage}
+## Credits
+${credits}
+## License
+${license}
+## Features
+${features}
+## How to Contribute
+${contribute}
+## Tests
+${tests}
 
-        ## Contact
+## Contact
 
-        * Linkedin: ${linkedin}
-        * Github: ${github}
-        * Email: ${email}
+* Linkedin: ${linkedin}
+* Github: ${github}
+* Email: ${email}
         `;
-        writeToFile(title, template)
+        createNewFile(title, template)
     })
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, template) {
+function createNewFile(fileName, data) {
     fs.writeFile(`./${fileName.toLowerCase().split(' ').join('')}.md`, data, (err) => {
         if (err) {
             console.log(err)
@@ -126,8 +141,14 @@ function writeToFile(fileName, template) {
     })
 }
 
-// TODO: Create a function to initialize app
-function init() { }
+// // TODO: Create a function to initialize app
+// function init() {
+//     inquirer
+//         .prompt(questions)
+//         .then((response) => {
+//             Start(response);
+//         });
+// }
 
-// Function call to initialize app
-init();
+// // Function call to initialize app
+// init();
