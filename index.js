@@ -133,7 +133,7 @@ ${tests}
         createNewFile(title, template)
     })
 
-// Created a function to creat and write to a README file
+// Created a function to create and write to a README file
 function createNewFile(fileName, data) {
     fs.writeFile(`./${fileName.toLowerCase().split(' ').join('')}.md`, data, (err) => {
         if (err) {
