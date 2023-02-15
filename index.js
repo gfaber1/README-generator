@@ -1,4 +1,4 @@
-// TODO: Include packages needed for this application
+//Included packages needed for this application
 const inquirer = require('inquirer')
 const fs = require('fs');
 
@@ -6,7 +6,7 @@ var MIT = 'MIT'
 var GPLv2 = 'GPLv2'
 var Apache = 'Apache 2.0'
 var other = 'Other'
-// TODO: Create an array of questions for user input
+// Created an array of questions for user input through inquirer prompts
 inquirer
     .prompt([
         {
@@ -85,6 +85,7 @@ inquirer
         linkedin,
         email,
     }) => {
+        // the license buttons are created depending on which license was selected
         if (license === MIT) {
             license = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
         } else if (license === GPLv2) {
@@ -94,6 +95,7 @@ inquirer
         } else if (license === other) {
             license = 'go here to find the correct markdown button for you license: https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba'
         }
+        // markdown template
         const template = `
 # ${title}
 
@@ -131,7 +133,7 @@ ${tests}
         createNewFile(title, template)
     })
 
-// TODO: Create a function to write README file
+// Created a function to creat and write to a README file
 function createNewFile(fileName, data) {
     fs.writeFile(`./${fileName.toLowerCase().split(' ').join('')}.md`, data, (err) => {
         if (err) {
@@ -140,15 +142,3 @@ function createNewFile(fileName, data) {
         console.log('Your professional README has been generated!')
     })
 }
-
-// // TODO: Create a function to initialize app
-// function init() {
-//     inquirer
-//         .prompt(questions)
-//         .then((response) => {
-//             Start(response);
-//         });
-// }
-
-// // Function call to initialize app
-// init();
