@@ -127,7 +127,7 @@ ${tests}
 ## Contact
 
 * Linkedin: ${linkedin}
-* Github: [My GitHub username is ${github}](https://github.com/${github})
+* Github: My GitHub username is [${github}](https://github.com/${github})
 * Email: ${email}
         `;
         createNewFile(title, template)
